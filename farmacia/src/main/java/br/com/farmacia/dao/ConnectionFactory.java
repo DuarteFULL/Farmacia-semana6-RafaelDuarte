@@ -18,7 +18,7 @@ public class ConnectionFactory {
 
     private HikariDataSource createDataSource() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/byte_bank");
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/farmacia");
         config.setUsername("root");
         config.setPassword("138prt22");
         config.setMaximumPoolSize(10);
