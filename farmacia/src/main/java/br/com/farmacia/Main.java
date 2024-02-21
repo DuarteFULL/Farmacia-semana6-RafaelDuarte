@@ -2,15 +2,18 @@ package br.com.farmacia;
 
 import java.util.Scanner;
 
+import br.com.farmacia.dao.ProdutoService;
 import br.com.farmacia.modelo.Produto;
 import br.com.farmacia.modelo.RegraDeNegocioException;
 
 public class Main {
-    private static Produto service = new Produto(0, null, null);
-    private static Scanner teclado = new Scanner(System.in).useDelimiter("\n");
+    private static ProdutoService service = new ProdutoService();
+    private static Scanner teclado = new Scanner(System.in);
 
     public static void main(String[] args) {
+
         var opcao = Menu();
+
         while (opcao != 5) {
             try {
                 switch (opcao) {
@@ -32,7 +35,9 @@ public class Main {
                 System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
                 teclado.next();
             }
+
             opcao = Menu();
+
         }
 
         System.out.println("Finalizando a aplicação.");

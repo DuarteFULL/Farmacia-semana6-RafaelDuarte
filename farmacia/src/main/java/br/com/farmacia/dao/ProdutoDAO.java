@@ -15,7 +15,7 @@ public class ProdutoDAO {
     }
 
     public void salvar(Produto dadosDoProduto) {
-        var produto = new Produto(dadosDoProduto.getPreco(), dadosDoProduto.getNome(), dadosDoProduto.getFabricante());
+        var produtoNovo = new Produto(dadosDoProduto.getPreco(), dadosDoProduto.getNome(), dadosDoProduto.getFabricante());
         
         String sql = "INSERT INTO produtos (preco, nome, fabricante)" +
                 "VALUES (?, ?, ?)";
@@ -23,11 +23,9 @@ public class ProdutoDAO {
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
-            //Parei aqui ******
-
-            preparedStatement.setDouble(1, produto.getPreco());
-            preparedStatement.setString(2, dadosDaConta.dadosCliente().nome());
-            preparedStatement.setString(3, dadosDaConta.dadosCliente().cpf());
+            preparedStatement.setDouble(1, produtoNovo.getPreco());
+            preparedStatement.setString(2, produtoNovo.getNome());
+            preparedStatement.setString(3, produtoNovo.getFabricante());
             
             preparedStatement.execute();
             preparedStatement.close();
@@ -49,7 +47,7 @@ public class ProdutoDAO {
             resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
-                BigDecimal preco = resultSet.getBigDecimal(1);
+                Double preco = resultSet.getDouble(1);
                 String nome = resultSet.getString(2);
                 String fabricante = resultSet.getString(3);
                 
