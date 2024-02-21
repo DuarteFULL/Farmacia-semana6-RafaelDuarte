@@ -20,7 +20,7 @@ public class ProdutoService {
     }
 
     public Set<Produto> listarProdutos() {
-        Connection conn = connection.recuperarProduto();
+        Connection conn = connection.recuperarConexao();
         return new ProdutoDAO(conn).listar();
     }
 
