@@ -3,6 +3,7 @@ package br.com.farmacia;
 import java.util.Scanner;
 
 import br.com.farmacia.modelo.Produto;
+import br.com.farmacia.modelo.RegraDeNegocioException;
 
 public class Main {
     private static Produto service = new Produto(0, null, null);
@@ -10,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         var opcao = Menu();
-        while (opcao != 8) {
+        while (opcao != 5) {
             try {
                 switch (opcao) {
                     case 1:
@@ -23,7 +24,7 @@ public class Main {
                         deletarProduto();
                         break;
                     case 4:
-                        consultarProduto()
+                        consultarProduto();
                         break;
                 }
             } catch (RegraDeNegocioException e) {
@@ -96,48 +97,5 @@ public class Main {
         teclado.next();
     }
 
-    // private static void realizarSaque() {
-    //     System.out.println("Digite o número da conta:");
-    //     var numeroDaConta = teclado.nextInt();
-
-    //     System.out.println("Digite o valor do saque:");
-    //     var valor = teclado.nextBigDecimal();
-
-    //     service.realizarSaque(numeroDaConta, valor);
-    //     System.out.println("Saque realizado com sucesso!");
-    //     System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
-    //     teclado.next();
-    // }
-
-    // private static void realizarDeposito() {
-    //     System.out.println("Digite o número da conta:");
-    //     var numeroDaConta = teclado.nextInt();
-
-    //     System.out.println("Digite o valor do depósito:");
-    //     var valor = teclado.nextBigDecimal();
-
-    //     service.realizarDeposito(numeroDaConta, valor);
-
-    //     System.out.println("Depósito realizado com sucesso!");
-    //     System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
-    //     teclado.next();
-    // }
-
-    // private static void realizarTransferencia() {
-    //     System.out.println("Digite o número da conta de origem:");
-    //     var numeroDaContaOrigem = teclado.nextInt();
-
-    //     System.out.println("Digite o número da conta de destino:");
-    //     var numeroDaContaDestino = teclado.nextInt();
-
-    //     System.out.println("Digite o valor a ser transferido:");
-    //     var valor = teclado.nextBigDecimal();
-
-    //     service.realizarTransferencia(numeroDaContaOrigem, numeroDaContaDestino, valor);
-
-    //     System.out.println("Transferência realizada com sucesso!");
-    //     System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
-    //     teclado.next();
-    // }
-
+    
 }
