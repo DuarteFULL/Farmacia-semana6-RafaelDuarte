@@ -37,29 +37,28 @@ public class ProdutoDAO {
         }
     }
 
-    public Set<Conta> listar() {
+    public Set<Produto> listar() {
         PreparedStatement ps;
         ResultSet resultSet;
-        Set<Conta> contas = new HashSet<>();
+        Set<Produto> produtos = new HashSet<>();
 
-        String sql = "SELECT * FROM conta WHERE esta_ativa = true";
+        String sql = "SELECT * FROM produtos"; //WHERE esta_ativa = true";
 
         try {
             ps = conn.prepareStatement(sql);
             resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
-                Integer numero = resultSet.getInt(1);
-                BigDecimal saldo = resultSet.getBigDecimal(2);
-                String nome = resultSet.getString(3);
-                String cpf = resultSet.getString(4);
-                String email = resultSet.getString(5);
+                BigDecimal preco = resultSet.getBigDecimal(1);
+                String nome = resultSet.getString(2);
+                String fabricante = resultSet.getString(3);
+                
 
-                DadosCadastroCliente dadosCadastroCliente =
-                        new DadosCadastroCliente(nome, cpf, email);
-                Cliente cliente = new Cliente(dadosCadastroCliente);
+                DadosCadastroProduto dadosCadastroProduto =
+                        new DadosCadastroProduto(preco, nome, fabricante);
+                Produto produto = new Produto(dadosCadastroProduto);
 
-                contas.add(new Conta(numero, saldo, cliente));
+                produto.add(new Produto(preco, nome, fabricante));
             }
             resultSet.close();
             ps.close();
@@ -67,7 +66,7 @@ public class ProdutoDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return contas;
+        return produtos;
     }
 
     public Conta listarPorNumero(Integer numero) {

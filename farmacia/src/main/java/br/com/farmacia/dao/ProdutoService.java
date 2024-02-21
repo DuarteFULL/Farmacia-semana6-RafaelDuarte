@@ -7,7 +7,7 @@ import br.com.farmacia.modelo.Produto;
 
 public class ProdutoService {
 
-    private Set<Produto> contas = new HashSet<>();
+    private Set<Produto> produtos = new HashSet<>();
 
     private ConnectionFactory connection;
 
@@ -17,7 +17,7 @@ public class ProdutoService {
 
     public Set<Produto> listarProdutos() {
         Connection conn = connection.recuperarProduto();
-        return new ContaDAO(conn).listar();
+        return new ProdutoDAO(conn).listar();
     }
 
     public BigDecimal consultarSaldo(Integer numeroDaConta) {
