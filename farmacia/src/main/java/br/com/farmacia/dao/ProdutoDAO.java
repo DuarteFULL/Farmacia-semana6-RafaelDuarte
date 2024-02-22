@@ -13,7 +13,7 @@ public class ProdutoDAO {
 
     private Connection conn;
 
-    ProdutoDAO(Connection connection) {
+    public ProdutoDAO(Connection connection) {
         this.conn = connection;
     }
 
@@ -44,18 +44,15 @@ public class ProdutoDAO {
         Set<Produto> produtos = new HashSet<>();
 
         String sql = "SELECT * FROM produtos"; //WHERE esta_ativa = true";
-        System.out.println(sql);
 
         try {
             ps = conn.prepareStatement(sql);
             resultSet = ps.executeQuery();
 
-            System.out.println(sql);
-
             while (resultSet.next()) {
-                float preco = resultSet.getFloat(1);
-                String nome = resultSet.getString(2);
-                String fabricante = resultSet.getString(3);
+                float preco = resultSet.getFloat(2);
+                String nome = resultSet.getString(3);
+                String fabricante = resultSet.getString(4);
 
                 produtos.add(new Produto(preco, nome, fabricante));
             }
@@ -69,7 +66,7 @@ public class ProdutoDAO {
     }
 
     public Produto listarPorNome(String nomeConsultar) {
-        String sql = "SELECT * FROM produtos WHERE nome = " + nomeConsultar;// + " and esta_ativa = true";
+        String sql = "SELECT * FROM produtos WHERE nome = '" + nomeConsultar+"'";// + " and esta_ativa = true";
 
         PreparedStatement ps;
         ResultSet resultSet;
@@ -80,9 +77,9 @@ public class ProdutoDAO {
             resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
-                float preco = resultSet.getFloat(1);
-                String nome = resultSet.getString(2);
-                String fabricante = resultSet.getString(3);
+                float preco = resultSet.getFloat(2);
+                String nome = resultSet.getString(3);
+                String fabricante = resultSet.getString(4);
 
                 // DadosCadastroCliente dadosCadastroCliente =
                 //         new DadosCadastroCliente(nome, cpf, email);

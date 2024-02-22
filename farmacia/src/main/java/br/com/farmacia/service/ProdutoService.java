@@ -1,13 +1,14 @@
-package br.com.farmacia.dao;
+package br.com.farmacia.service;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.util.HashSet;
 import java.util.Set;
 
-import br.com.farmacia.RegraDeNegocioException;
+import br.com.farmacia.modelo.RegraDeNegocioException;
 import br.com.farmacia.modelo.Produto;
 import br.com.farmacia.dao.ConnectionFactory;
+import br.com.farmacia.dao.ProdutoDAO;
 
 public class ProdutoService {
 
@@ -29,9 +30,9 @@ public class ProdutoService {
         new ProdutoDAO(conn).alterar(produto.getNome(), novoFabricante, novoValor);
     }
 
-    private Produto buscarProdutoPorNome(String nome) {
+    public Produto buscarProdutoPorNome(String nome) {
         Connection conn = connection.recuperarConexao();
-        Conta produto = new ProdutoDAO(conn).listarPorNome(nome);
+        Produto produto = new ProdutoDAO(conn).listarPorNome(nome);
         if(produto != null) {
             return produto;
         } else {
@@ -39,15 +40,17 @@ public class ProdutoService {
         }
     }
 
+    public void cadastrar(Produto dadosDoProduto) {
+        Connection conn = connection.recuperarConexao();
+        new ProdutoDAO(conn).salvar(dadosDoProduto);
+    }
+
     // public BigDecimal consultarSaldo(Integer numeroDaConta) {
     //     var conta = buscarContaPorNumero(numeroDaConta);
     //     return conta.getSaldo();
     // }
 
-    // public void abrir(DadosAberturaConta dadosDaConta) {
-    //     Connection conn = connection.recuperarConexao();
-    //     new ContaDAO(conn).salvar(dadosDaConta);
-    // }
+    
 
     // public void realizarSaque(Integer numeroDaConta, BigDecimal valor) {
     //     var conta = buscarContaPorNumero(numeroDaConta);

@@ -1,4 +1,4 @@
-package br.com.farmacia;
+package br.com.farmacia.modelo;
 
 public class RegraDeNegocioException extends RuntimeException {
         

@@ -2,9 +2,9 @@ package br.com.farmacia;
 
 import java.util.Scanner;
 
-import br.com.farmacia.dao.ProdutoService;
 import br.com.farmacia.modelo.Produto;
 import br.com.farmacia.modelo.RegraDeNegocioException;
+import br.com.farmacia.service.ProdutoService;
 
 public class Main {
     private static ProdutoService service = new ProdutoService();
@@ -65,7 +65,7 @@ public class Main {
     }
 
     private static void cadastrarProduto() {
-        System.out.println("Digite o nome do prduto:");
+        System.out.println("Digite o nome do produto:");
         var nomeDoProduto = teclado.next();
 
         System.out.println("Digite o valor do produto:");
@@ -95,7 +95,7 @@ public class Main {
     private static void consultarProduto() {
         System.out.println("Digite o nome do produto:");
         var nomeDoProduto = teclado.next();
-        var produto = service.consultarProduto(nomeDoProduto);
+        var produto = service.buscarProdutoPorNome(nomeDoProduto);
         System.out.println(produto.toString());
 
         System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
