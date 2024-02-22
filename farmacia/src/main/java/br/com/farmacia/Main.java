@@ -14,7 +14,7 @@ public class Main {
 
         var opcao = Menu();
 
-        while (opcao != 5) {
+        while (opcao != 6) {
             try {
                 switch (opcao) {
                     case 1:
@@ -28,6 +28,9 @@ public class Main {
                         break;
                     case 4:
                         consultarProduto();
+                        break;
+                    case 5:
+                        alterarValorProduto();
                         break;
                 }
             } catch (RegraDeNegocioException e) {
@@ -50,7 +53,8 @@ public class Main {
                 2 - Cadastrar produto
                 3 - Deletar produto
                 4 - Consultar produto
-                5 - Sair
+                5 - Alterar valor do produto
+                6 - Sair
                 """);
         return teclado.nextInt();
     }
@@ -96,6 +100,18 @@ public class Main {
         System.out.println("Digite o nome do produto:");
         var nomeDoProduto = teclado.next();
         var produto = service.buscarProdutoPorNome(nomeDoProduto);
+        System.out.println(produto.toString());
+
+        System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
+        teclado.next();
+    }
+
+    private static void alterarValorProduto() {
+        System.out.println("Digite o nome do produto:");
+        var nomeDoProduto = teclado.next();
+        var produto = service.buscarProdutoPorNome(nomeDoProduto);
+        //parei aqui
+        
         System.out.println(produto.toString());
 
         System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
