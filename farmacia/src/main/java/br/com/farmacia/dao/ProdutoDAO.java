@@ -2,6 +2,7 @@ package br.com.farmacia.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
@@ -52,15 +53,9 @@ public class ProdutoDAO {
             System.out.println(sql);
 
             while (resultSet.next()) {
-                float preco = resultSet.getDouble(1);
+                float preco = resultSet.getFloat(1);
                 String nome = resultSet.getString(2);
                 String fabricante = resultSet.getString(3);
-                
-
-                DadosCadastroProduto dadosCadastroProduto =
-                        new DadosCadastroProduto(preco, nome, fabricante);
-                Produto produto = new Produto(dadosCadastroProduto);
-                System.out.println(produto.toString()   );
 
                 produtos.add(new Produto(preco, nome, fabricante));
             }
@@ -73,29 +68,27 @@ public class ProdutoDAO {
         return produtos;
     }
 
-    public Conta listarPorNumero(Integer numero) {
-        String sql = "SELECT * FROM conta WHERE numero = " + numero + " and esta_ativa = true";
+    public Produto listarPorNome(String nomeConsultar) {
+        String sql = "SELECT * FROM produtos WHERE nome = " + nomeConsultar;// + " and esta_ativa = true";
 
         PreparedStatement ps;
         ResultSet resultSet;
-        Conta conta = null;
+        Produto produto = null;
         try {
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, numero);
+            //ps.setInt(1, nome);
             resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
-                Integer numeroRecuperado = resultSet.getInt(1);
-                BigDecimal saldo = resultSet.getBigDecimal(2);
-                String nome = resultSet.getString(3);
-                String cpf = resultSet.getString(4);
-                String email = resultSet.getString(5);
+                float preco = resultSet.getFloat(1);
+                String nome = resultSet.getString(2);
+                String fabricante = resultSet.getString(3);
 
-                DadosCadastroCliente dadosCadastroCliente =
-                        new DadosCadastroCliente(nome, cpf, email);
-                Cliente cliente = new Cliente(dadosCadastroCliente);
+                // DadosCadastroCliente dadosCadastroCliente =
+                //         new DadosCadastroCliente(nome, cpf, email);
+                // Cliente cliente = new Cliente(dadosCadastroCliente);
 
-                conta = new Conta(numeroRecuperado, saldo, cliente);
+                produto = new Produto(preco, nome, fabricante);
             }
             resultSet.close();
             ps.close();
@@ -103,7 +96,7 @@ public class ProdutoDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return conta;
+        return produto;
     }
 
     public void alterar(Integer numero, BigDecimal valor) {

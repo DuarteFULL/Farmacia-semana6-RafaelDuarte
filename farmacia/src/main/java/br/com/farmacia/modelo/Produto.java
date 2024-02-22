@@ -13,6 +13,12 @@ public class Produto {
         this.fabricante = fabricante;
     }
 
+    // public Produto(Produto prod) {
+    //     this.preco = prod.getPreco();
+    //     this.nome = prod.getNome();
+    //     this.fabricante = prod.getFabricante();
+    // }
+
     public double getPreco() {
         return preco;
     }
