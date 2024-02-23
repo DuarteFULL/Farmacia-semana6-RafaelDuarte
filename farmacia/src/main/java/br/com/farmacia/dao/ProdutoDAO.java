@@ -43,7 +43,7 @@ public class ProdutoDAO {
         ResultSet resultSet;
         Set<Produto> produtos = new HashSet<>();
 
-        String sql = "SELECT * FROM produtos"; //WHERE esta_ativa = true";
+        String sql = "SELECT * FROM produtos"; 
 
         try {
             ps = conn.prepareStatement(sql);
@@ -80,10 +80,6 @@ public class ProdutoDAO {
                 float preco = resultSet.getFloat(2);
                 String nome = resultSet.getString(3);
                 String fabricante = resultSet.getString(4);
-
-                // DadosCadastroCliente dadosCadastroCliente =
-                //         new DadosCadastroCliente(nome, cpf, email);
-                // Cliente cliente = new Cliente(dadosCadastroCliente);
 
                 produto = new Produto(preco, nome, fabricante);
             }
