@@ -96,22 +96,23 @@ public class ProdutoDAO {
         return produto;
     }
 
-    public void alterar(Integer numero, BigDecimal valor) {
+    public void alterar(String nome, String fabricante, Float valor) {
         PreparedStatement ps;
-        String sql = "UPDATE conta SET saldo = ? WHERE numero = ?";
+        String sql = "UPDATE produtos SET preco = ? and fabricante = ? WHERE nome = ?";
 
         try {
             conn.setAutoCommit(false);
 
             ps = conn.prepareStatement(sql);
 
-            ps.setBigDecimal(1, valor);
-            ps.setInt(2, numero);
+            ps.setFloat(1, valor);
+            ps.setString(2, fabricante);
+            ps.setString(3, nome);
 
             ps.execute();
             ps.close();
-            conn.close();
             conn.commit();
+            conn.close();
         } catch (SQLException e) {
             try {
                 conn.rollback();

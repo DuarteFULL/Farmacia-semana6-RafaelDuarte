@@ -110,6 +110,14 @@ public class Main {
         System.out.println("Digite o nome do produto:");
         var nomeDoProduto = teclado.next();
         var produto = service.buscarProdutoPorNome(nomeDoProduto);
+        System.out.println("Digite o novo valor do produto:");
+        var valorDoProduto = teclado.nextFloat();
+
+        System.out.println("Digite o novo fabricante do produto:");
+        var fabricanteDoProduto = teclado.next();
+
+        service.alterarValorProduto(produto, fabricanteDoProduto, valorDoProduto);
+
         //parei aqui
         
         System.out.println(produto.toString());

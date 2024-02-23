@@ -25,7 +25,7 @@ public class ProdutoService {
         return new ProdutoDAO(conn).listar();
     }
 
-    private void alterar(Produto produto, String novoFabricante, double novoValor) {
+    public void alterarValorProduto(Produto produto, String novoFabricante, float novoValor) {
         Connection conn = connection.recuperarConexao();
         new ProdutoDAO(conn).alterar(produto.getNome(), novoFabricante, novoValor);
     }
