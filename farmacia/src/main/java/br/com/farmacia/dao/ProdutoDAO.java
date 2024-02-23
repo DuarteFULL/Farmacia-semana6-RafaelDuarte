@@ -96,9 +96,9 @@ public class ProdutoDAO {
         return produto;
     }
 
-    public void alterar(String nome, String fabricante, Float valor) {
+    public void alterarValor(String nome, Float valor) {
         PreparedStatement ps;
-        String sql = "UPDATE produtos SET preco = ? and fabricante = ? WHERE nome = ?";
+        String sql = "UPDATE produtos SET preco = ? WHERE nome = ?";
 
         try {
             conn.setAutoCommit(false);
@@ -106,8 +106,60 @@ public class ProdutoDAO {
             ps = conn.prepareStatement(sql);
 
             ps.setFloat(1, valor);
-            ps.setString(2, fabricante);
-            ps.setString(3, nome);
+            ps.setString(2, nome);
+
+            ps.execute();
+            ps.close();
+            conn.commit();
+            conn.close();
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void alterarFabricante(String nome, String fabricante) {
+        PreparedStatement ps;
+        String sql = "UPDATE produtos SET fabricante = ? WHERE nome = ?";
+
+        try {
+            conn.setAutoCommit(false);
+
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, fabricante);
+            ps.setString(2, nome);
+            
+
+            ps.execute();
+            ps.close();
+            conn.commit();
+            conn.close();
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void remove(String produto) {
+        PreparedStatement ps;
+        String sql = "DELETE FROM produtos WHERE nome = ?";
+
+        try {
+            conn.setAutoCommit(false);
+
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, produto);
+            
 
             ps.execute();
             ps.close();

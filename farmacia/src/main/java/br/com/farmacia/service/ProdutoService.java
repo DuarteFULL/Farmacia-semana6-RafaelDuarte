@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.mysql.cj.conf.PropertyDefinition;
+
 import br.com.farmacia.modelo.RegraDeNegocioException;
 import br.com.farmacia.modelo.Produto;
 import br.com.farmacia.dao.ConnectionFactory;
@@ -25,9 +27,14 @@ public class ProdutoService {
         return new ProdutoDAO(conn).listar();
     }
 
-    public void alterarValorProduto(Produto produto, String novoFabricante, float novoValor) {
+    public void alterarValorProduto(Produto produto, float novoValor) {
         Connection conn = connection.recuperarConexao();
-        new ProdutoDAO(conn).alterar(produto.getNome(), novoFabricante, novoValor);
+        new ProdutoDAO(conn).alterarValor(produto.getNome(), novoValor);
+    }
+
+    public void alterarFabricanteProduto(Produto produto, String novoFabricante) {
+        Connection conn = connection.recuperarConexao();
+        new ProdutoDAO(conn).alterarFabricante(produto.getNome(), novoFabricante);
     }
 
     public Produto buscarProdutoPorNome(String nome) {
@@ -43,6 +50,14 @@ public class ProdutoService {
     public void cadastrar(Produto dadosDoProduto) {
         Connection conn = connection.recuperarConexao();
         new ProdutoDAO(conn).salvar(dadosDoProduto);
+    }
+
+    public void deletar(String nomeDoProduto) {
+        Connection conn = connection.recuperarConexao();
+
+        Produto produto = buscarProdutoPorNome(nomeDoProduto);
+
+        new ProdutoDAO(conn).remove(produto.getNome());
     }
 
     // public BigDecimal consultarSaldo(Integer numeroDaConta) {
@@ -84,14 +99,7 @@ public class ProdutoService {
     //     this.realizarDeposito(numeroDaContaDestino, valor);
     // }
 
-    // public void encerrar(Integer numeroDaConta) {
-    //     var conta = buscarContaPorNumero(numeroDaConta);
-    //     if (conta.possuiSaldo()) {
-    //         throw new RegraDeNegocioException("Conta não pode ser encerrada pois ainda possui saldo!");
-    //     }
-
-    //     contas.remove(conta);
-    // }
+    
 
     
 }

@@ -14,7 +14,7 @@ public class Main {
 
         var opcao = Menu();
 
-        while (opcao != 6) {
+        while (opcao != 7) {
             try {
                 switch (opcao) {
                     case 1:
@@ -32,6 +32,8 @@ public class Main {
                     case 5:
                         alterarValorProduto();
                         break;
+                    case 6:
+                        alterarFabricanteProduto();
                 }
             } catch (RegraDeNegocioException e) {
                 System.out.println("Erro: " +e.getMessage());
@@ -54,7 +56,8 @@ public class Main {
                 3 - Deletar produto
                 4 - Consultar produto
                 5 - Alterar valor do produto
-                6 - Sair
+                6 - Alterar fabricante do produto 
+                7 - Sair
                 """);
         return teclado.nextInt();
     }
@@ -89,7 +92,7 @@ public class Main {
         System.out.println("Digite o nome do produto:");
         var nomeDoProduto = teclado.next();
 
-        service.encerrar(nomeDoProduto);
+        service.deletar(nomeDoProduto);
 
         System.out.println("Produto deletado com sucesso!");
         System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
@@ -113,14 +116,20 @@ public class Main {
         System.out.println("Digite o novo valor do produto:");
         var valorDoProduto = teclado.nextFloat();
 
-        System.out.println("Digite o novo fabricante do produto:");
+        service.alterarValorProduto(produto, valorDoProduto);
+
+        System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
+        teclado.next();
+    }
+
+    private static void alterarFabricanteProduto() {
+        System.out.println("Digite o nome do produto:");
+        var nomeDoProduto = teclado.next();
+        var produto = service.buscarProdutoPorNome(nomeDoProduto);
+         System.out.println("Digite o novo fabricante do produto:");
         var fabricanteDoProduto = teclado.next();
 
-        service.alterarValorProduto(produto, fabricanteDoProduto, valorDoProduto);
-
-        //parei aqui
-        
-        System.out.println(produto.toString());
+        service.alterarFabricanteProduto(produto, fabricanteDoProduto);
 
         System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
         teclado.next();
